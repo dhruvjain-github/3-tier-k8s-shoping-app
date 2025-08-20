@@ -298,48 +298,17 @@ easyshop/
 └── scripts/            # Database migration scripts
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository
-2. Create a new branch: `git checkout -b feature/amazing-feature`
-3. Make your changes
-4. Run tests: `npm test` (coming soon)
-5. Commit your changes: `git commit -m 'Add amazing feature'`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
-
-> [!TIP]
-> Check our [Contributing Guidelines](CONTRIBUTING.md) for more details
-
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## 📝 Acknowledgments
 
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [MongoDB](https://www.mongodb.com/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [Radix UI](https://www.radix-ui.com/)
-
-## 📫 Contact
-
-For questions or feedback, please open an issue or contact the maintainers:
-
-- Maintainer - [@Md. Afzal hassan Ehsani](https://github.com/iemafzalhassan)
-- Project Link: [https://github.com/iemafzalhassan/easyshop](https://github.com/iemafzalhassan/easyshop)
-
----
-
-<div align="center">
-  <p>
-    Made with ❤️ by <a href="https://iemafzalhassan.tech" target="_blank"><b>Md. Afzal Hassan Ehsani</b></a>
-  </p>
-</div>
-
 
 # EasyShop Deployment
 
