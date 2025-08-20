@@ -82,7 +82,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# Note: public/ folder should NOT be ignored in Next.js projects
 
 # Vuepress build output
 .vuepress/dist
