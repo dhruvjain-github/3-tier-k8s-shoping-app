@@ -4,18 +4,22 @@ metadata:
   name: db-migration
   namespace: easyshop
 spec:
-  backoffLimit: 1                # retry only once if fails
   template:
     spec:
       containers:
         - name: migration
-          image: dhruvjaindocker/k8s-shop-migration:latest   # <-- use correct migration image if available
+          image: dhruvjaindocker/k8s-shop-migration:latest
           imagePullPolicy: Always
-          command: ["/bin/sh", "-c"]
-          args: ["echo 'Migration completed successfully' && exit 0"]
+          command: ["npx"]
+          args: ["ts-node", "--project", "scripts/tsconfig.json", "scripts/migrate-data.ts"]
           env:
             - name: MONGODB_URI
-              value: "mongodb://mongodb-service:27017/easyshop"
+              valueFrom:
+                configMapKeyRef:
+                  name: easyshop-config
+                  key: MONGODB_URI
+            - name: NODE_ENV
+              value: "production"
           resources:
             requests:
               memory: "128Mi"
@@ -23,4 +27,7 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "200m"
-      restartPolicy: Never        # best practice for jobs
+      restartPolicy: OnFailure
+      activeDeadlineSeconds: 600  # Increased to 10 minutes
+  backoffLimit: 3  # Allow 3 retries
+  ttlSecondsAfterFinished: 300  # Clean up job after 5 minutes

@@ -1,20 +1,25 @@
-# Use existing base image
-FROM nextbaseimage:v0
+# Use Node.js 18 as base
+FROM node:18
 
 # Set working directory
 WORKDIR /app
 
+# Install necessary build dependencies
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
+
 # Copy package files and tsconfig
-COPY package*.json ./
-COPY tsconfig.json ./
-COPY scripts/tsconfig.json ./scripts/
+COPY package*.json tsconfig.json ./
 
 # Copy scripts and data
 COPY scripts ./scripts
 COPY .db ./db
 
+# Install dependencies
+RUN npm install
+RUN npm install --save-dev @types/mongoose
+
 # Set environment variables
 ENV NODE_ENV=development
 
 # Command to run migration
-CMD ["node", "--loader", "ts-node/esm", "scripts/migrate-data.ts"]
+CMD ["npx", "ts-node", "--project", "/app/scripts/tsconfig.json", "/app/scripts/migrate-data.ts"]
