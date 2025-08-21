@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: easyshop-secrets
+  namespace: easyshop
+type: Opaque
+stringData:
+  NEXTAUTH_SECRET: "PCQE+xteOPGbuXdJtSyS69PPuph3l6P+wtF3cGnxJnA="
+  JWT_SECRET: "fa446b124979acb19196dd23337e7991be206f0fb381c53fa29bf87a1c92f9b"
