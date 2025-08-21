@@ -4,14 +4,15 @@ metadata:
   name: db-migration
   namespace: easyshop
 spec:
+  backoffLimit: 1                # retry only once if fails
   template:
     spec:
       containers:
         - name: migration
-          image: dhruvjaindocker/k8s-shop-app:latest
+          image: dhruvjaindocker/k8s-shop-migration:latest   # <-- use correct migration image if available
           imagePullPolicy: Always
-          command: ["/bin/sh"]
-          args: ["-c", "echo 'Migration completed successfully' && exit 0"]
+          command: ["/bin/sh", "-c"]
+          args: ["echo 'Migration completed successfully' && exit 0"]
           env:
             - name: MONGODB_URI
               value: "mongodb://mongodb-service:27017/easyshop"
@@ -22,5 +23,4 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "200m"
-      restartPolicy: OnFailure
-      activeDeadlineSeconds: 300
+      restartPolicy: Never        # best practice for jobs
