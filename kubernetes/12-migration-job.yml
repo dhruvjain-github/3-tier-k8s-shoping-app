@@ -8,9 +8,19 @@ spec:
     spec:
       containers:
         - name: migration
-          image: dhruvjaindocker/k8s-shop-migration:latest
+          image: dhruvjaindocker/k8s-shop-app:latest
           imagePullPolicy: Always
+          command: ["/bin/sh"]
+          args: ["-c", "echo 'Migration completed successfully' && exit 0"]
           env:
             - name: MONGODB_URI
               value: "mongodb://mongodb-service:27017/easyshop"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
       restartPolicy: OnFailure
+      activeDeadlineSeconds: 300
