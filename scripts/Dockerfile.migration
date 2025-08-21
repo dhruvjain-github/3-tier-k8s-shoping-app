@@ -4,22 +4,17 @@ FROM nextbaseimage:v0
 # Set working directory
 WORKDIR /app
 
-# Install necessary build dependencies
-RUN apk add --no-cache python3 make g++
-
 # Copy package files and tsconfig
-COPY package*.json tsconfig.json ./
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY scripts/tsconfig.json ./scripts/
 
 # Copy scripts and data
 COPY scripts ./scripts
 COPY .db ./db
 
-# Install dependencies
-RUN npm install
-RUN npm install --save-dev @types/mongoose
-
 # Set environment variables
 ENV NODE_ENV=development
 
 # Command to run migration
-CMD ["npx", "ts-node", "--project", "scripts/tsconfig.json", "scripts/migrate-data.ts"]
+CMD ["node", "--loader", "ts-node/esm", "scripts/migrate-data.ts"]
